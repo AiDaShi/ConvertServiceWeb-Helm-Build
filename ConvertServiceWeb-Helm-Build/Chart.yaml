@@ -1,4 +1,4 @@
-apiVersion: v2
+apiVersion: v1
 name: ConvertServiceWeb-Helm-Build
 description: A website mainly used for image conversion display.
 
@@ -6,4 +6,4 @@ type: application
 
 version: 0.1.1
 
-appVersion: "1.16.0"
+appVersion: "0.1.1"

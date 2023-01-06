@@ -1,0 +1,30 @@
+apiVersion: v1
+entries:
+  ConvertServiceWeb-Helm-Build:
+  - apiVersion: v1
+    appVersion: 0.1.1
+    created: "2023-01-06T15:42:10.1747828+08:00"
+    description: A website mainly used for image conversion display.
+    digest: 88563fe4ade41da54d26c17be776fbe02043dd04be8130a72409b2f926d28a3c
+    name: ConvertServiceWeb-Helm-Build
+    type: application
+    version: 0.1.1
+    home: https://aidashi.github.io/ConvertServiceWeb-Helm-Build/
+    icon: http://www.pinbayun.com/static/images/exampleDetail/ygs/banner-logo.png
+    kubeVersion: ^1.10.0-0
+    keywords:
+    - convertserviceweb
+    - inglassswprinter
+    - elastic
+    - vector
+    - search
+    - deploy
+    maintainers:
+    - email: Bob.He@oerlikon.com
+      name: bob
+      url: https://aidashi.github.io/ConvertServiceWeb-Helm-Build
+    sources:
+    - https://github.com/AiDaShi/ConvertServiceWeb-Helm-Build
+    urls:
+    - https://github.com/AiDaShi/ConvertServiceWeb-Helm-Build/raw/main/ConvertServiceWeb-Helm-Build/charts/ConvertServiceWeb-Helm-Build-0.1.1.tgz
+generated: "2023-01-06T15:42:10.0826781+08:00"
