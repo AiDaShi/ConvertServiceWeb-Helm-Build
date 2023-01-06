@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bomconfig
+  namespace: {{ .Values.namespace }}
+data:
+  appsettings.json: |
+   {
+    "ConnectionStrings": {
+      "DBWorksConnection": "Integrated Security = False;Data Source={{ .Values.db.dbwork.host }};Initial Catalog={{ .Values.swprinterbomservice.database.dbworks }};User ID={{ .Values.db.dbwork.user }};Password={{ .Values.db.dbwork.pwd }};MultipleActiveResultSets=true;Encrypt=False;"
+    },
+    "PersistentStorage": {
+      "Minute": 5,
+      "PrefixName": "",
+      "Name": "SWP_BomChecks",
+      "AboutFileName": "SWP_SearchFileData"
+    },
+    "BomBaseCache": {
+      {{- if .Values.redis.autocreate }}
+      "ConnectionString": "{{ .Values.redis.hostname }}.{{ .Values.namespace }},allowAdmin=true,connectTimeout=60000,syncTimeout=60000",
+      {{- end }}
+      "Sentinel": []
+    },
+    "Logging": {
+      "LogLevel": {
+        "Default": "Information",
+        "Microsoft.AspNetCore": "Warning"
+      }
+    },
+    "NowApolloNameSpace": "{{ .Values.apollo.namespaces.bom }}",
+    "Apollo": {
+      "AppId": "{{ .Values.apollo.AppId }}",
+      "Env": "{{ .Values.apollo.Env }}",
+      "MetaServer": "{{ .Values.apollo.MetaServer }}",
+      "ConfigServer": [ "{{ .Values.apollo.ConfigServer }}" ]
+    },
+    "AllowedHosts": "*"
+   }

@@ -1,0 +1,35 @@
+{{- range $index, $value := .Values.swprinterapiservice.volumes }}
+{{- if $value.persistentVolumeClaim }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: 
+ name: {{ $value.persistentVolumeClaim.claimName | quote }}
+ namespace: {{ $.Values.namespace }}
+spec:
+  accessModes: 
+   - ReadWriteOnce
+  resources: 
+   requests:
+    storage: {{ $.Values.globaldeployseting.storage }}
+  storageClassName: {{ $.Values.globaldeployseting.storageClassName }}
+---
+{{- end }}
+{{- end }}
+
+{{- range $index, $value := .Values.globaldeployseting.volumes }}
+{{- if $value.persistentVolumeClaim }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: 
+ name: {{ $value.persistentVolumeClaim.claimName | quote }}
+ namespace: {{ $.Values.namespace }}
+spec:
+  accessModes: 
+   - ReadWriteOnce
+  resources: 
+   requests:
+    storage: {{ $.Values.globaldeployseting.storage }}
+  storageClassName: {{ $.Values.globaldeployseting.storageClassName }}
+---
+{{- end }}
+{{- end }}

@@ -1,0 +1,280 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.swprinterbomservice.fullname }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    name: {{ .Values.swprinterbomservice.fullname }}
+spec:
+  replicas: {{ .Values.swprinterbomservice.replicas | default .Values.globaldeployseting.replicas }}
+  selector:
+    matchLabels:
+      name: {{ .Values.swprinterbomservice.fullname }}
+  template:
+      metadata:
+        labels:
+          name: {{ .Values.swprinterbomservice.fullname }}
+      spec:
+        {{- with .Values.globaldeployseting.imagePullSecrets }}
+        imagePullSecrets:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        containers:
+        - name: "{{ .Values.swprinterbomservice.fullname }}"
+          image: "{{ .Values.swprinterbomservice.repository }}"
+          {{- with .Values.globaldeployseting.ports }}
+          ports:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          imagePullPolicy: {{ .Values.globaldeployseting.pullPolicy }}
+          {{- with .Values.globaldeployseting.envFrom }}
+          envFrom:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          volumeMounts:
+          {{- with .Values.globaldeployseting.volumeMounts }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- with .Values.swprinterbomservice.volumeMounts }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        volumes:
+        {{- with .Values.swprinterbomservice.volumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.globaldeployseting.volumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.swprinterapiservice.fullname }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    name: {{ .Values.swprinterapiservice.fullname }}
+spec:
+  replicas: {{ .Values.swprinterapiservice.replicas | default .Values.globaldeployseting.replicas }}
+  selector:
+    matchLabels:
+      name: {{ .Values.swprinterapiservice.fullname }}
+  template:
+      metadata:
+        labels:
+          name: {{ .Values.swprinterapiservice.fullname }}
+      spec:
+        {{- with .Values.globaldeployseting.imagePullSecrets }}
+        imagePullSecrets:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        containers:
+        - name: {{ .Values.swprinterapiservice.fullname }}
+          image: {{ .Values.swprinterapiservice.repository }}
+          {{- with .Values.globaldeployseting.ports }}
+          ports:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          imagePullPolicy: {{ .Values.globaldeployseting.pullPolicy }}
+          {{- with .Values.globaldeployseting.envFrom }}
+          envFrom:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          volumeMounts:
+          {{- with .Values.swprinterapiservice.volumeMounts }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- with .Values.globaldeployseting.volumeMounts }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        volumes:
+        {{- with .Values.swprinterapiservice.volumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.globaldeployseting.volumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.swprinterautoservice.fullname }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    name: {{ .Values.swprinterautoservice.fullname }}
+spec:
+  replicas: {{ .Values.swprinterautoservice.replicas | default .Values.globaldeployseting.replicas }}
+  selector:
+    matchLabels:
+      name: {{ .Values.swprinterautoservice.fullname }}
+  template:
+      metadata:
+        labels:
+          name: {{ .Values.swprinterautoservice.fullname }}
+      spec:
+        {{- with .Values.globaldeployseting.imagePullSecrets }}
+        imagePullSecrets:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        containers:
+        - name: {{ .Values.swprinterautoservice.fullname }}
+          image: {{ .Values.swprinterautoservice.repository }}
+          {{- with .Values.globaldeployseting.ports }}
+          ports:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          imagePullPolicy: {{ .Values.globaldeployseting.pullPolicy }}
+          {{- with .Values.globaldeployseting.envFrom }}
+          envFrom:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- with .Values.globaldeployseting.envFrom }}
+          envFrom:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          volumeMounts:
+          {{- with .Values.swprinterautoservice.volumeMounts }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- with .Values.globaldeployseting.volumeMounts }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        volumes:
+        {{- with .Values.swprinterautoservice.volumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.globaldeployseting.volumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.swprinteridentityservice.fullname }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    name: {{ .Values.swprinteridentityservice.fullname }}
+spec:
+  replicas: {{ .Values.swprinteridentityservice.replicas | default .Values.globaldeployseting.replicas }}
+  selector:
+    matchLabels:
+      name: {{ .Values.swprinteridentityservice.fullname }}
+  template:
+      metadata:
+        labels:
+          name: {{ .Values.swprinteridentityservice.fullname }}
+      spec:
+        {{- with .Values.globaldeployseting.imagePullSecrets }}
+        imagePullSecrets:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        containers:
+        - name: {{ .Values.swprinteridentityservice.fullname }}
+          image: {{ .Values.swprinteridentityservice.repository }}
+          {{- with .Values.globaldeployseting.ports }}
+          ports:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          imagePullPolicy: {{ .Values.globaldeployseting.pullPolicy }}
+          {{- with .Values.globaldeployseting.envFrom }}
+          envFrom:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          volumeMounts:
+          {{- with .Values.swprinteridentityservice.volumeMounts }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- with .Values.globaldeployseting.volumeMounts }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        volumes:
+        {{- with .Values.swprinteridentityservice.volumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.globaldeployseting.volumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.swprintergatewayservice.fullname }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    name: {{ .Values.swprintergatewayservice.fullname }}
+spec:
+  replicas: {{ .Values.swprintergatewayservice.replicas | default .Values.globaldeployseting.replicas }}
+  selector:
+    matchLabels:
+      name: {{ .Values.swprintergatewayservice.fullname }}
+  template:
+      metadata:
+        labels:
+          name: {{ .Values.swprintergatewayservice.fullname }}
+      spec:
+        {{ if .Values.swprintergatewayservice.serviceAccountName }}serviceAccountName: {{ .Values.swprintergatewayservice.serviceAccountName }}{{ end }}
+        {{- with .Values.globaldeployseting.imagePullSecrets }}
+        imagePullSecrets:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        containers:
+        - name: {{ .Values.swprintergatewayservice.fullname }}
+          image: {{ .Values.swprintergatewayservice.repository }}
+          {{- with .Values.globaldeployseting.ports }}
+          ports:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          imagePullPolicy: {{ .Values.globaldeployseting.pullPolicy }}
+          {{- with .Values.globaldeployseting.envFrom }}
+          envFrom:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          volumeMounts:
+          {{- with .Values.swprintergatewayservice.volumeMounts }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- with .Values.globaldeployseting.volumeMounts }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        volumes:
+        {{- with .Values.swprintergatewayservice.volumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with .Values.globaldeployseting.volumes }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.swprinterspaservice.fullname }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    name: {{ .Values.swprinterspaservice.fullname }}
+spec:
+  replicas: {{ .Values.swprinterspaservice.replicas | default .Values.globaldeployseting.replicas }}
+  selector:
+    matchLabels:
+      name: {{ .Values.swprinterspaservice.fullname }}
+  template:
+      metadata:
+        labels:
+          name: {{ .Values.swprinterspaservice.fullname }}
+      spec:
+        {{- with .Values.globaldeployseting.imagePullSecrets }}
+        imagePullSecrets:
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+        containers:
+        - name: {{ .Values.swprinterspaservice.fullname }}
+          image: {{ .Values.swprinterspaservice.repository }}
+          {{- with .Values.globaldeployseting.ports }}
+          ports:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+          imagePullPolicy: {{ .Values.globaldeployseting.pullPolicy }}
+          env:
+          - name: BACK_API_URL
+            value: {{ .Values.externalapi.getway }}
+          - name: BACK_IDENTITY_URL
+            value: {{ .Values.externalapi.authority }}
+---

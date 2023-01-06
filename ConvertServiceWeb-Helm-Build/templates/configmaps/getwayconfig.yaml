@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: getwayconfig
+  namespace: {{ .Values.namespace }}
+data:
+  appsettings.json: |
+   {
+    "https_port": 443,
+    "Logging": {
+      "LogLevel": {
+        "Default": "Information",
+        "Microsoft": "Warning",
+        "Microsoft.Hosting.Lifetime": "Information"
+      }
+    },
+    "Apollo": {
+      "AppId": "{{ .Values.apollo.AppId }}",
+      "Env": "{{ .Values.apollo.Env }}",
+      "MetaServer": "{{ .Values.apollo.MetaServer }}",
+      "ConfigServer": [ "{{ .Values.apollo.ConfigServer }}" ]
+    },
+    "AllowedHosts": "*",
+    "Routes": [
+      {
+        "UpstreamPathTemplate": "/{url}",
+        "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put", "Head", "Options" ],
+        "DownstreamPathTemplate": "/{url}",
+        "DownstreamScheme": "http",
+        "ServiceName": "{{ .Values.swprinterapiservice.fullname }}",
+        "QoSOptions": {
+          "ExceptionsAllowedBeforeBreaking": 500, 
+          "DurationOfBreak": 1000,
+          "TimeoutValue": 300000
+        }
+      }
+    ],
+    "NowApolloNameSpace": "{{ .Values.apollo.namespaces.gateway }}",
+    "GlobalConfiguration": {
+      "ServiceDiscoveryProvider": {
+        "Namespace": "{{ .Values.namespace }}",
+        "Type": "kube"
+      }
+    },
+    "Identity_Config": {
+      "Authority": "{{ .Values.externalapi.authority }}",
+      "Audience": "ApiOne",
+      "IsHttps": false,
+      "ValidateIssuer": true,
+      "ValidateAudience": false
+    }
+   }
