@@ -26,5 +26,5 @@ entries:
     sources:
     - https://github.com/AiDaShi/ConvertServiceWeb-Helm-Build
     urls:
-    - https://github.com/AiDaShi/ConvertServiceWeb-Helm-Build/raw/main/ConvertServiceWeb-Helm-Build/charts/ConvertServiceWeb-Helm-Build-0.1.1.tgz
+    - https://github.com/AiDaShi/ConvertServiceWeb-Helm-Build/raw/main/charts/ConvertServiceWeb-Helm-Build-0.1.1.tgz
 generated: "2023-01-06T15:42:10.0826781+08:00"
